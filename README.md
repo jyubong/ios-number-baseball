@@ -23,7 +23,7 @@
 
 ---
 ### 3. Flow Chart
-<img src="https://github.com/jyubong/ios-number-baseball/assets/126065608/184a67ae-cd4f-4d57-a6f2-6c77ae830ccd" width="400">
+<img src="https://github.com/jyubong/ios-number-baseball/assets/126065608/f6b963d0-4e9e-4b45-b13d-585157f65e84" width="400">
 
 ---
 ### 4. 숫자야구 실행
@@ -40,19 +40,14 @@
 #### ❗️함수와 변수 Naming
 함수와 변수의 적절한 Naming 방법이 미숙하였습니다. ``Swift API Guideline``에 나타나지 않은 Naming과 코드 컨벤션에서 어려움을 겪었습니다. 함수 이름으로 ``getResult()``를 사용하였는데, 공식 문서에는 나타나있지 않지만 통상적으로 ``함수명에는 get을 사용하지 않는 것``을 알게되었습니다.  
 이처럼 불확실한 부분들은 PR을 통해 리뷰어의 조언을 받아 고쳐나갔습니다. 
-<details>
-<summary>세부 코드</summary>
 
 ``` swift
 getRandomNumbers() -> makeRandomNumbers()  
 getResult() -> makeResult()
-```
-</details>   
+``` 
 
 #### ❗️함수 기능 분리
 Strike와 Ball을 판정하는 기능을 makeResult() 함수 안에 함께 구현하였습니다. 하나의 함수에 여러가지 기능을 넣어두게 되면서 if문을 다중 사용하게 되었고, 리뷰를 통해 추후 기능 수정이나 가독성 측면이 좋지 못한 것을 알게 되었습니다. 그래서 Strike 함수와 Ball 함수 각각을 만들어 기능을 분리하였습니다.
-<details>
-<summary>세부 코드</summary>
 
 ##### 수정 전 코드
 ``` swift
@@ -95,15 +90,12 @@ func ballCount(computerNumbers: [Int], userNumbers: [Int]) -> Int {
     return ball
 }
 ```
-</details>   
 
 #### ❗️사용자 입력값 유효성 검사
 사용자 입력값을 받았을 때 예외처리 경우의 수가 많아 이를 처리하는 방안을 생각하기가 쉽지 않았습니다.   
 입력값 유효성 검사 전 ``compactMap{Int($0)}``으로 처리할 경우 문자값을 받았을 때 에러를 출력하지 못해 ``map{Int($0)``을 사용했습니다. 이때 nil값을 처리하기 위해 ``?? 10``을 설정해주었고, 유효성 검사에서 10 이상일 경우 에러를 출력하는 부분에서 걸러지도록 만들었습니다.
 하지만 이럴 경우 nil값이 모두 10으로 중복 처리되어 결론적으로 문자값에 맞는 에러를 출력하기가 어려워지는 등 문제점이 발생하였습니다.  
 그래서 ``SubString`` 타입을 그대로 문자값에 대한 에러처리를 진행했으며, 모든 유효성 검사 마친 후 ``compactMap{Int($0)}`을 이용했습니다.
-<details>
-<summary>세부 코드</summary>
 
 ##### 수정 전 코드
 ``` swift
@@ -196,7 +188,6 @@ func validate(userNumbers: [Substring]) -> Bool {
     return true
 }
 ```
-</details>
 
 ---
 ### 6. 참고 링크
